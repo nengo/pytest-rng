@@ -1,0 +1,78 @@
+project_name: pytest-rng
+pkg_name: pytest_rng
+repo_name: nengo/pytest-rng
+description: Fixtures for seeding tests and making randomness reproducible
+
+copyright_start: 2019
+
+license_rst:
+  type: mit
+
+contributing_rst: {}
+
+contributors_rst: {}
+
+manifest_in: {}
+
+setup_py:
+  license: MIT license
+  python_requires: ">=3.5"
+  install_req:
+    - numpy
+    - pytest
+  docs_req:
+    - nengo_sphinx_theme>=1.0
+    - sphinx
+  entry_points:
+    pytest11:
+      - "rng = pytest_rng.plugin"
+  classifiers:
+    - "Development Status :: 5 - Production/Stable"
+    - "Framework :: Pytest"
+    - "License :: OSI Approved :: MIT License"
+    - "Programming Language :: Python :: 3 :: Only"
+    - "Programming Language :: Python :: 3.5"
+    - "Programming Language :: Python :: 3.6"
+    - "Programming Language :: Python :: 3.7"
+
+setup_cfg:
+  pytest:
+    addopts: []
+    filterwarnings:
+      - ignore:testdir.copy_example is an experimental api
+    rng_salt: v1.0.0
+    pytester_example_dir: pytest_rng/tests
+    python_files: test_pytest.py
+  pylint:
+    disable:
+      - missing-docstring
+
+docs_conf_py:
+  nengo_logo: general-small-light.svg
+
+travis_yml:
+  python: 3.6
+  jobs:
+    - script: static
+    - script: test-coverage
+    - script: test
+      python: 3.5
+      cache: false  # disable the cache for one build to make sure that works
+    - script: test
+      python: 3.7
+      dist: xenial  # currently only xenial has python 3.7
+    - script: docs
+
+ci_scripts:
+  - template: static
+  - template: test
+  - template: test
+    output_name: test-coverage
+    coverage: true
+  - template: docs
+
+codecov_yml: {}
+
+pre_commit_config_yaml: {}
+
+pyproject_toml: {}
