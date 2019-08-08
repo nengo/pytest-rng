@@ -19,8 +19,8 @@ Release History
    - Removed
    - Fixed
 
-1.0.0 (unreleased)
-==================
+1.0.0 (August 8, 2019)
+======================
 
 Initial release of ``pytest-rng``!
 Thanks to all of the contributors for making this possible!
