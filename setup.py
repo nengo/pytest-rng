@@ -29,8 +29,14 @@ def read(*filenames, **kwargs):
 root = os.path.dirname(os.path.realpath(__file__))
 version = runpy.run_path(os.path.join(root, "pytest_rng", "version.py"))["version"]
 
-install_req = ["numpy", "pytest"]
-docs_req = ["nengo_sphinx_theme>=1.0", "sphinx"]
+install_req = [
+    "numpy",
+    "pytest",
+]
+docs_req = [
+    "nengo_sphinx_theme>=1.0",
+    "sphinx",
+]
 optional_req = []
 tests_req = []
 
@@ -54,7 +60,7 @@ setup(
         "tests": tests_req,
     },
     python_requires=">=3.5",
-    entry_points={"pytest11": ["rng = pytest_rng.plugin"]},
+    entry_points={"pytest11": ["rng = pytest_rng.plugin",],},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Framework :: Pytest",
