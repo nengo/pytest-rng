@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 """Test the `~.rng` and `~.seed` fixtures.
 
 To test that the values are consistent across multiple test runs, we require the

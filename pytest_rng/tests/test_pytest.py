@@ -1,3 +1,5 @@
+# pylint: disable=missing-docstring
+
 """The main test file that should be run on a regular basis.
 
 The goal of this file is to test pytest_rng internals and run all other
