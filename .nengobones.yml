@@ -16,7 +16,7 @@ manifest_in: {}
 
 setup_py:
   license: MIT license
-  python_requires: ">=3.5"
+  python_requires: ">=3.6"
   install_req:
     - numpy
     - pytest
@@ -33,9 +33,10 @@ setup_py:
     - "Framework :: Pytest"
     - "License :: OSI Approved :: MIT License"
     - "Programming Language :: Python :: 3 :: Only"
-    - "Programming Language :: Python :: 3.5"
     - "Programming Language :: Python :: 3.6"
     - "Programming Language :: Python :: 3.7"
+    - "Programming Language :: Python :: 3.8"
+    - "Programming Language :: Python :: 3.9"
 
 setup_cfg:
   pytest:
@@ -54,7 +55,7 @@ docs_conf_py:
   one_page: True
 
 travis_yml:
-  python: 3.6
+  python: 3.7
   global_vars:
     COV_CORE_SOURCE: pytest_rng
     COV_CORE_CONFIG: .coveragerc
@@ -63,11 +64,11 @@ travis_yml:
     - script: static
     - script: test-coverage
     - script: test
-      python: 3.5
+      python: 3.6
       cache: false  # disable the cache for one build to make sure that works
     - script: test
-      python: 3.7
-      dist: xenial  # currently only xenial has python 3.7
+      python: 3.9
+      dist: bionic
     - script: docs
   pypi_user: tbekolay
   deploy_dists:
