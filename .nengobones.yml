@@ -5,6 +5,7 @@ description: Fixtures for seeding tests and making randomness reproducible
 
 copyright_start: 2019
 license: mit
+main_branch: main
 
 license_rst: {}
 
@@ -37,7 +38,9 @@ setup_py:
 
 setup_cfg:
   pytest:
-    addopts: []
+    addopts:
+      - "--cov"
+      - "--cov-append"
     filterwarnings:
       - ignore:testdir.copy_example is an experimental api
     rng_salt: v1.0.0
@@ -46,51 +49,21 @@ setup_cfg:
   pylint:
     disable:
       - missing-docstring
+  coverage:
+    omit_files:
+      - "*/setup.py"
 
 docs_conf_py:
   nengo_logo: general-small-light.svg
   one_page: True
 
-travis_yml:
-  python: 3.6
-  global_vars:
-    COV_CORE_SOURCE: pytest_rng
-    COV_CORE_CONFIG: .coveragerc
-    COV_CORE_DATAFILE: .coverage.eager
-  jobs:
-    - script: static
-    - script: test-coverage
-    - script: test
-      python: 3.5
-      cache: false  # disable the cache for one build to make sure that works
-    - script: test
-      python: 3.7
-      dist: xenial  # currently only xenial has python 3.7
-    - script: docs
-  pypi_user: tbekolay
-  deploy_dists:
-    - sdist
-    - bdist_wheel
-  slack_notifications: "Vv1F7WaissijT/Z4y8cg6KFo9e2cY0Mc+ZpkR8QRp/XRH0ki+RzPt0/iCb67Ta\
-    QAzLBu/yka2/v4BmKDXXN1wcxh9otbJIpiO8qEJ8i72P/Wr1mv6wUFHJtUWKQzqzNj1dwN7wFs//eT51w+\
-    N0L5/BiqO2STSTDYp1Dk/MQSg3Mc++6LG7tZwfmdJ3qfW5UEQx4SCN73LAFZfkRE5u+qtPvcyzZ4u3dop0\
-    1tlMXeIng4y4olYWAOXxI9HuBLg07OA/FY7EUMZC9aQjUanKWxlEK/v1Dun2UCm+g9if99XM5Q+9eWAPqm\
-    +7cbSn3pXn4fkkNYi3JWczgJorj+325fSrZ0d+mjqiFT+oQv98rVCGfnvOn77OgKe9DpBBZCSh9zNuPgre\
-    fXwJMM+gBzWrGJv5EfLhsAOdaF2sk/Mst72nZ7egGf73KaNf8JdiK/D0f2+jJRy42ekV+6wHf14DfxBIY7\
-    yel8D5yVDSMkzp9CUZxWJxrdPBIKc7wkWnCX7h8bC1nhVP1w/vZqvws3+itVtd8Vb6D934bv0bMNEuiQ0Q\
-    db1kHBLgvSy1HCAvOqiokMDjAz0VVFUo/Wnax1T7o2Z8M/Hx3tqUfXzhAUXUYQKTmUoYaEGhL8s73up4oJ\
-    aYC4v8s8eBz/9MIJmCtnBsODn1QRYvOFw+Ya4yz8hqSDRtE="
-
 ci_scripts:
   - template: static
   - template: test
-  - template: test
-    output_name: test-coverage
     coverage: true
   - template: docs
   - template: deploy
-
-codecov_yml: {}
+    wheel: true
 
 pre_commit_config_yaml: {}
 
