@@ -1,6 +1,7 @@
 # pylint: disable=missing-docstring
 
-"""The main test file that should be run on a regular basis.
+"""
+The main test file that should be run on a regular basis.
 
 The goal of this file is to test pytest_rng internals and run all other
 test files with various invocations of pytest to ensure that all possible
@@ -18,13 +19,14 @@ pytest_plugins = ["pytester"]
 
 
 def assert_all_passed(result):
-    """Assert that all outcomes are 0 except for 'passed'.
+    """
+    Assert that all outcomes are 0 except for 'passed'.
 
     Also returns the number of passed tests.
     """
     outcomes = result.parseoutcomes()
     for outcome in outcomes:
-        if outcome not in ("passed", "seconds"):
+        if outcome not in ("passed", "seconds", "warnings", "warning"):
             assert outcomes[outcome] == 0
     return outcomes.get("passed", 0)
 
@@ -43,17 +45,17 @@ def copy_all_tests(testdir, path):
     ]
     for test in tests:
         test_path = testdir.copy_example(test)
-        test_path.rename("%s/%s" % (path, test))
+        test_path.rename(f"{path}/{test}")
 
 
 def check_consistency(testdir, *pytest_args):
     """Run all tests twice to check seed consistency across runs."""
 
     # The first pass fills up the cache
-    result = testdir.runpytest_subprocess("--cache-clear", *pytest_args)
+    result = testdir.runpytest_inprocess("--cache-clear", *pytest_args)
 
     # The second pass should all pass
-    result = testdir.runpytest_subprocess(*pytest_args)
+    result = testdir.runpytest_inprocess(*pytest_args)
     assert assert_all_passed(result) > 0
 
 

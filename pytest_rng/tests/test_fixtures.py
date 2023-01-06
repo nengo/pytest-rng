@@ -1,6 +1,7 @@
 # pylint: disable=missing-docstring
 
-"""Test the `~.rng` and `~.seed` fixtures.
+"""
+Test the `~.rng` and `~.seed` fixtures.
 
 To test that the values are consistent across multiple test runs, we require the
 tests to be run twice. On the first test run, we cache randomly generated values.
@@ -35,9 +36,7 @@ def test_seed(cache, param, seed):
 
 @pytest.mark.parametrize("param", ["a", "b"])
 def test_seed_across_tests(cache, param, seed):
-    cached = cache.get(
-        "test_seed[{param}]:{salt}".format(param=param, salt=Seed.salt), None
-    )
+    cached = cache.get(f"test_seed[{param}]:{Seed.salt}", None)
     if cached is not None:
         # This seed should not be the same as test_seed
         assert seed != cached
@@ -54,7 +53,6 @@ def test_rng(cache, param, rng):
 
     cached = cache.get(key, None)
     if cached is not None:
-
         # Generated values should be the same across test runs
         assert all(x == y for x, y in zip(vals, cached))
 

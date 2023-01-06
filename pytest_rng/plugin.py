@@ -5,12 +5,12 @@ import pytest
 
 
 class Seed:
-
     salt = ""
 
     @classmethod
     def generate(cls, uniqueid, extra_salt=""):
-        """Generate a unique seed for the given identifier.
+        """
+        Generate a unique seed for the given identifier.
 
         The seed should be the same across all machines/platforms.
         """
@@ -36,13 +36,14 @@ def pytest_configure(config):
 
 @pytest.fixture
 def rng(request):
-    """A seeded random number generator (RNG).
+    """
+    A seeded random number generator (RNG).
 
-    An instance of `~numpy.random.mtrand.RandomState`. It is preferable
-    to the unseeded `numpy.random` because it is consistent from one
-    test run to the next when using the same salt value, and preferable to
-    a fixed seed RNG because changing the salt checks that tests
-    are not dependent on a specific seed.
+    An instance of `~numpy.random.mtrand.RandomState`. It is preferable to the
+    unseeded `numpy.random` because it is consistent from one test run to the
+    next when using the same salt value, and preferable to a fixed seed RNG
+    because changing the salt checks that tests are not dependent on a specific
+    seed.
     """
     return np.random.RandomState(Seed.generate(request.node.nodeid, extra_salt="rng"))
 
