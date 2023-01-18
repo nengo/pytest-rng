@@ -4,7 +4,7 @@
 pytest-rng license
 ******************
 
-Copyright (c) 2019-2022 Applied Brain Research
+Copyright (c) 2019-2023 Applied Brain Research
 
 **MIT License**
 
